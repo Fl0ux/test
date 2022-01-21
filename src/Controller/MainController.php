@@ -47,4 +47,14 @@ class MainController extends AbstractController
 
         return $this->render('basket.html.twig', compact('order'));
     }
+
+    /**
+     * @Route("/paiement", name="payement")
+     */
+    public function payement(Request $request)
+    {
+        $order = $request->getSession()->get('order');
+
+        return $this->render('payement.html.twig', compact('order'));
+    }
 }

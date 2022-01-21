@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} - Paiement{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col"><h1 class="mt-2 mb-1">Paiement</h1></div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <table class="table table-stripped">
+            <thead>
+            <tr>
+                <th>Produit</th>
+                <th>Quantité</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in order.items -%}
+                <tr>
+                    <td>{{ item.product.title }}</td>
+                    <td>{{ item.quantity }}</td>
+                </tr>
+            {%- endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}
