@@ -30,7 +30,7 @@ class Order
     {
         $productKey = $this->getProductKey($product);
 
-        if ($productKey) {
+        if ($productKey !== null) {
             $this->items[$productKey]->addQuantity($quantity);
         } else {
             $this->items[] = (new Item())
