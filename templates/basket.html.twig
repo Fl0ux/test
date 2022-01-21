@@ -83,13 +83,13 @@
     </div>
   </div>
 
-  <div class="row text-end">
-    <div class="col">
-      {% if order.items|length != 0 -%}
-        <a href="{{ url('payement') }}" class="btn btn-success">Payer</a>
-      {%- endif %}
+  {% if order.items|length != 0 -%}
+    <div class="row text-end">
+      <div class="col">
+          <a href="{{ url('payement') }}" class="btn btn-success">Payer</a>
+      </div>
     </div>
-  </div>
+  {%- endif %}
 
 {% endblock %}
 
