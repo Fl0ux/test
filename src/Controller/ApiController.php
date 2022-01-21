@@ -8,6 +8,7 @@ use NumberFormatter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\AsciiSlugger;
 
@@ -23,6 +24,11 @@ class ApiController extends AbstractController
     {
         /** @var Order $order */
         $order = $request->getSession()->get('order');
+
+        if (! $order || count($order->getItems()) === 0) {
+            throw new NotFoundHttpException();
+        }
+
         $slugger = new AsciiSlugger();
 
         /** @var Item $item */
