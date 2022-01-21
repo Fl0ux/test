@@ -39,6 +39,10 @@
               <td><input type="number" name="{{ item.product.title|slug }}" value="{{ item.quantity }}"></td>
               <td class="text-end">{{ (item.product.price * item.quantity)|format_currency('EUR', locale='fr') }}</td>
             </tr>
+          {%- else -%}
+            <tr>
+              <td colspan="4">Votre panier est vide</td>
+            </tr>
           {%- endfor %}
           </tbody>
 
@@ -81,7 +85,9 @@
 
   <div class="row text-end">
     <div class="col">
-      <a href="{{ url('payement') }}" class="btn btn-success">Payer</a>
+      {% if order.items|length != 0 -%}
+        <a href="{{ url('payement') }}" class="btn btn-success">Payer</a>
+      {%- endif %}
     </div>
   </div>
 

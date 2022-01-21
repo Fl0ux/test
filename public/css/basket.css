@@ -9,3 +9,7 @@ td:nth-child(4) {
 [colspan] {
     border: 0;
 }
+
+.link-disabled {
+    pointer-events: none;
+}
