@@ -51,7 +51,7 @@ class MainController extends AbstractController
     /**
      * @Route("/paiement", name="payement")
      */
-    public function payement(Request $request)
+    public function payement(Request $request): Response
     {
         $order = $request->getSession()->get('order');
 
