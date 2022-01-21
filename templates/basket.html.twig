@@ -36,7 +36,9 @@
               <td class="text-end">
                 {{ item.product.price|format_currency('EUR', locale='fr') }}
               </td>
-              <td><input type="number" name="{{ item.product.title|slug }}" value="{{ item.quantity }}"></td>
+              <td>
+                <input type="number" name="{{ item.product.title|slug }}" value="{{ item.quantity }}" class="form-control">
+              </td>
               <td class="text-end">{{ (item.product.price * item.quantity)|format_currency('EUR', locale='fr') }}</td>
             </tr>
           {%- else -%}
