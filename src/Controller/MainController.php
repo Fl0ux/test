@@ -2,13 +2,29 @@
 
 namespace App\Controller;
 
+use App\Entity\Order;
 use App\Entity\Product;
 use App\Entity\Promotion;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
-class MainController
+class MainController extends AbstractController
 {
-    public function index(): Response
+    /**
+     * @Route("/", name="home")
+     */
+    public function index(): RedirectResponse
+    {
+        return $this->redirectToRoute('basket');
+    }
+
+    /**
+     * @Route("/panier", name="basket")
+     */
+    public function basket(Request $request): Response
     {
         $product1 = new Product('Cuve à gasoil', 250000, 'Farmitoo');
         $product2 = new Product('Nettoyant pour cuve', 5000, 'Farmitoo');
@@ -21,6 +37,14 @@ class MainController
         // Nettoyant pour cuve x3
         // Piquet de clôture x5
 
-        return new Response();
+        $order = (new Order())
+            ->addItem($product1)
+            ->addItem($product2, 3)
+            ->addItem($product3, 5)
+            ->addPromotion($promotion1);
+
+        $request->getSession()->set('order', $order);
+
+        return $this->render('basket.html.twig', compact('order'));
     }
 }
