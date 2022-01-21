@@ -9,7 +9,7 @@ $('input').on('change', function () {
     $(this).closest('tr').find('td:last-child').text(data.price);
 
     $('#ht').text(data.ht);
-    $('#promotion').text(data.promotion);
+    $('#promotion').text('-' + data.promotion);
     $('#shippingCosts').text(data.shippingCosts);
     $('#vat').text(data.vat);
     $('#ttc').text(data.ttc);
