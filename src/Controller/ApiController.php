@@ -6,6 +6,7 @@ use App\Entity\Item;
 use App\Entity\Order;
 use NumberFormatter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\AsciiSlugger;
@@ -18,7 +19,7 @@ class ApiController extends AbstractController
     /**
      * @Route("/panier")
      */
-    public function basket(Request $request)
+    public function basket(Request $request): JsonResponse
     {
         /** @var Order $order */
         $order = $request->getSession()->get('order');
@@ -26,7 +27,7 @@ class ApiController extends AbstractController
 
         /** @var Item $item */
         foreach ($order->getItems() as $item) {
-            if ($slugger->slug($item->getProduct()->getTitle()) === $request->get('slug')) {
+            if ($slugger->slug($item->getProduct()->getTitle())->toString() === $request->get('slug')) {
                 $item->setQuantity($request->get('quantity'));
 
                 break;
@@ -35,7 +36,7 @@ class ApiController extends AbstractController
 
         $formatter = new NumberFormatter('fr', NumberFormatter::CURRENCY);
         $formatter->setTextAttribute(NumberFormatter::CURRENCY_CODE, 'EUR');
-dump($item);
+
         return $this->json(
             [
                 'price' => $formatter->format($item->getProduct()->getPrice() * $item->getQuantity()),
